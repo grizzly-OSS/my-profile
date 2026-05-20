@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>심재민 — Backend Engineer Portfolio</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container": "#eaedff",
+            "surface-container-highest": "#dae2fd",
+            "secondary-container": "#d0e1fb",
+            "on-tertiary-container": "#009668",
+            "inverse-surface": "#283044",
+            "surface-container-lowest": "#ffffff",
+            "surface-dim": "#d2d9f4",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "tertiary-fixed-dim": "#4edea3",
+            "error": "#ba1a1a",
+            "on-secondary-fixed": "#0b1c30",
+            "background": "#faf8ff",
+            "outline-variant": "#c6c6cd",
+            "primary": "#000000",
+            "inverse-on-surface": "#eef0ff",
+            "on-surface-variant": "#45464d",
+            "surface": "#faf8ff",
+            "on-tertiary": "#ffffff",
+            "on-primary-container": "#5979ff",
+            "secondary": "#505f76",
+            "tertiary-container": "#002113",
+            "on-error-container": "#93000a",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#dde1ff",
+            "primary-container": "#001356",
+            "surface-container-high": "#e2e7ff",
+            "on-primary-fixed-variant": "#0035be",
+            "secondary-fixed-dim": "#b7c8e1",
+            "on-secondary-fixed-variant": "#38485d",
+            "surface-tint": "#124af0",
+            "tertiary": "#000000",
+            "on-secondary": "#ffffff",
+            "outline": "#76777d",
+            "surface-bright": "#faf8ff",
+            "primary-fixed-dim": "#b8c3ff",
+            "on-secondary-container": "#54647a",
+            "secondary-fixed": "#d3e4fe",
+            "inverse-primary": "#b8c3ff",
+            "surface-variant": "#dae2fd",
+            "tertiary-fixed": "#6ffbbe",
+            "on-primary-fixed": "#001356",
+            "surface-container-low": "#f2f3ff",
+            "on-background": "#131b2e",
+            "on-tertiary-fixed-variant": "#005236",
+            "on-surface": "#131b2e",
+            "on-tertiary-fixed": "#002113"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          fontFamily: {
+            headline: ["Manrope", "Noto Sans KR", "sans-serif"],
+            body: ["Inter", "Noto Sans KR", "sans-serif"],
+            label: ["Inter", "Noto Sans KR", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ── Material Symbols ── */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .material-symbols-outlined[data-weight="fill"] {
+      font-variation-settings: 'FILL' 1;
+    }
+
+    /* ── Dark mode smooth transition ── */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body,
+    header,
+    aside,
+    main,
+    .sidebar-card {
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    /* ── Dark mode overrides ── */
+    .dark body {
+      background-color: #0f1626;
+      color: #e2e8f8;
+    }
+
+    .dark .sidebar-card {
+      background-color: #1a233a;
+    }
+
+    .dark .hero-card,
+    .dark .exp-card {
+      background-color: #1a233a;
+    }
+
+    .dark .project-card {
+      background-color: #1e2a42;
+    }
+
+    /* ── Top nav active / inactive ── */
+    .nav-link {
+      position: relative;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+    }
+
+    .nav-link.is-active {
+      color: #124af0;
+      border-bottom-color: #124af0;
+    }
+
+    .dark .nav-link.is-active {
+      color: #4edea3;
+      border-bottom-color: #4edea3;
+    }
+
+    .nav-link:not(.is-active) {
+      color: #64748b;
+    }
+
+    .dark .nav-link:not(.is-active) {
+      color: #94a3b8;
+    }
+
+    .nav-link:not(.is-active):hover {
+      color: #131b2e;
+      background-color: #f2f3ff;
+    }
+
+    .dark .nav-link:not(.is-active):hover {
+      color: #ffffff;
+      background-color: #1e293b;
+    }
+
+    /* ── Sidebar nav active / inactive ── */
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s, background-color 0.2s, transform 0.2s;
+    }
+
+    .sidebar-link.is-active {
+      background-color: #dae2fd;
+      color: #124af0;
+      font-weight: 700;
+    }
+
+    .dark .sidebar-link.is-active {
+      background-color: rgba(18, 74, 240, 0.2);
+      color: #4edea3;
+    }
+
+    .sidebar-link:not(.is-active) {
+      color: #475569;
+      font-weight: 500;
+    }
+
+    .dark .sidebar-link:not(.is-active) {
+      color: #94a3b8;
+    }
+
+    .sidebar-link:not(.is-active):hover {
+      color: #131b2e;
+      background-color: #f2f3ff;
+      transform: translateX(4px);
+    }
+
+    .dark .sidebar-link:not(.is-active):hover {
+      color: #ffffff;
+      background-color: #223050;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface font-body antialiased min-h-screen">
+
+  <!-- ============================================================
+       TOP NAVIGATION
+       ============================================================ -->
+  <header
+    class="bg-[#faf8ff] dark:bg-[#131b2e] transition-colors duration-500 sticky top-0 z-50 border-b border-outline-variant/20">
+    <div class="flex justify-between items-center w-full px-6 md:px-8 py-5 max-w-screen-2xl mx-auto">
+
+      <div class="text-2xl md:text-3xl font-black text-[#131b2e] dark:text-[#faf8ff] tracking-tighter font-headline">
+        IM.DEV<span class="text-surface-tint">_</span>
+      </div>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex gap-6 items-center font-headline" id="main-nav">
+        <a href="#profile" data-section="profile"
+          class="nav-link tracking-tight font-extrabold uppercase px-2 rounded-sm">Profile</a>
+        <a href="#experience" data-section="experience"
+          class="nav-link tracking-tight font-extrabold uppercase px-2 rounded-sm">Experience</a>
+        <a href="#projects" data-section="projects"
+          class="nav-link tracking-tight font-extrabold uppercase px-2 rounded-sm">Projects</a>
+        <a href="#certs" data-section="certs"
+          class="nav-link tracking-tight font-extrabold uppercase px-2 rounded-sm">Certs</a>
+        <a href="#contact" data-section="contact"
+          class="nav-link tracking-tight font-extrabold uppercase px-2 rounded-sm">Contact</a>
+      </nav>
+
+      <!-- Right Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" aria-label="Toggle dark mode"
+          class="flex items-center justify-center w-10 h-10 rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+        </button>
+        <!-- ✏️ EDIT: CV 링크 연결 -->
+        <a href="#"
+          class="hidden sm:flex font-headline tracking-tight font-extrabold uppercase text-on-primary px-5 py-2.5 rounded-xl bg-primary-container hover:opacity-90 transition-opacity text-sm">
+          Download CV
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN LAYOUT  (Sidebar + Content)
+       ============================================================ -->
+  <div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row gap-0 md:gap-10 px-4 md:px-8 py-8 md:py-12">
+
+    <!-- ──────────────────────────────────────────────────────────
+         LEFT SIDEBAR
+         ────────────────────────────────────────────────────────── -->
+    <aside class="w-full md:w-80 flex-shrink-0 mb-10 md:mb-0">
+      <div
+        class="sidebar-card bg-surface-container-low dark:bg-[#1a233a] rounded-xl shadow-xl p-6 flex flex-col sticky top-28">
+
+        <!-- Profile Header -->
+        <div class="flex flex-col items-center mb-8 text-center">
+          <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-surface shadow-md">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREYxo_4cH2InDSjhqNzHFwrn8O_6cm6eX8uQ&s"
+              alt="홍길동 프로필 사진" class="w-full h-full object-cover">
+          </div>
+          <h1 class="text-2xl font-bold text-[#131b2e] dark:text-white font-headline tracking-tight">심재민</h1>
+          <p class="text-surface-tint font-body font-medium mt-1 text-sm">Backend Engineer</p>
+          <p class="text-on-surface-variant text-xs mt-1">배재대학교 스마트배터리학과 2학년</p>
+        </div>
+
+        <!-- Sidebar Nav Links -->
+        <div class="flex flex-col gap-1 mb-8" id="sidebar-nav">
+          <a href="#profile" data-section="profile" class="sidebar-link font-headline tracking-wide">
+            <span class="material-symbols-outlined text-xl">person_search</span>
+            Profile
+          </a>
+          <a href="#experience" data-section="experience" class="sidebar-link font-headline tracking-wide">
+            <span class="material-symbols-outlined text-xl">work_history</span>
+            Experience
+          </a>
+          <a href="#projects" data-section="projects" class="sidebar-link font-headline tracking-wide">
+            <span class="material-symbols-outlined text-xl">folder_shared</span>
+            Projects
+          </a>
+          <a href="#certs" data-section="certs" class="sidebar-link font-headline tracking-wide">
+            <span class="material-symbols-outlined text-xl">verified</span>
+            Certifications
+          </a>
+          <a href="#contact" data-section="contact" class="sidebar-link font-headline tracking-wide">
+            <span class="material-symbols-outlined text-xl">alternate_email</span>
+            Contact
+          </a>
+        </div>
+
+        <!-- Skills (sidebar bottom) -->
+        <div class="mt-auto" id="skills">
+          <h3 class="font-headline font-bold text-surface-tint mb-3 text-xs uppercase tracking-widest">Languages</h3>
+          <div class="flex flex-wrap gap-2 mb-5">
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              Java</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              Python</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              TypeScript</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              C++</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              SQL</span>
+          </div>
+
+          <h3 class="font-headline font-bold text-surface-tint mb-3 text-xs uppercase tracking-widest">Frameworks &
+            Tools</h3>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              Spring Boot</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              FastAPI</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              React</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              Docker</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              Redis</span>
+            <span class="skill-tag"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim inline-block"></span>
+              PostgreSQL</span>
+          </div>
+
+          <a href="mailto:gildong.hong@gmail.com"
+            class="block w-full text-center bg-primary-container text-on-primary py-3 rounded-xl font-headline font-bold hover:opacity-90 transition-all text-sm">
+            Hire Me
+          </a>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ──────────────────────────────────────────────────────────
+         MAIN CONTENT
+         ────────────────────────────────────────────────────────── -->
+    <main class="flex-1 flex flex-col gap-14">
+
+      <!-- ── Hero / Intro ── -->
+      <section id="profile"
+        class="hero-card relative p-8 md:p-12 bg-surface-container-lowest rounded-xl shadow-[0_10px_30px_rgba(19,27,46,0.06)] overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gradient-to-br from-primary-container/5 to-surface-tint/5 opacity-60 pointer-events-none">
+        </div>
+        <div class="relative z-10">
+          <div
+            class="inline-flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full text-xs font-label text-surface-tint font-semibold mb-5">
+            <span class="w-2 h-2 rounded-full bg-[#4edea3] animate-pulse inline-block"></span>
+            2029 대학원 준비 중
+          </div>
+          <h2
+            class="font-headline text-4xl md:text-6xl font-extrabold text-on-surface tracking-tighter mb-6 leading-tight">
+            배터리 전문가를 향해
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#124af0] to-[#4edea3]">
+              신소재
+            </span>
+            엔지니어가 되겠습니다.
+          </h2>
+          <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+            배재대학교 스마트배터리학과 2학년 심재민입니다.<strong class="text-on-surface font-semibold">Spring Boot · PostgreSQL ·
+              Redis</strong> 스택을 중심으로
+            기초 역학 및 소재 과학 지식을 바탕으로 차세대 에너지 저장장치 소재 개발을 목표로 공부하고 있습니다.
+            함께 성장하고 발전할 수 있는 기회를 만들어가고 싶습니다.
+          </p>
+
+          <!-- Quick Stats -->
+          <div class="flex flex-wrap gap-6 mt-8">
+            <div class="text-center">
+              <div class="text-2xl font-black font-headline text-surface-tint">1년</div>
+              <div class="text-xs text-on-surface-variant font-label mt-0.5">개발 경력</div>
+            </div>
+            <div class="w-px bg-outline-variant/30"></div>
+            <div class="text-center">
+              <div class="text-2xl font-black font-headline text-surface-tint">1+</div>
+              <div class="text-xs text-on-surface-variant font-label mt-0.5">프로젝트</div>
+            </div>
+            <div class="w-px bg-outline-variant/30"></div>
+            <div class="text-center">
+              <div class="text-2xl font-black font-headline text-surface-tint">1</div>
+              <div class="text-xs text-on-surface-variant font-label mt-0.5">인턴십</div>
+            </div>
+            <div class="w-px bg-outline-variant/30"></div>
+            <div class="text-center">
+              <div class="text-2xl font-black font-headline text-surface-tint">1편</div>
+              <div class="text-xs text-on-surface-variant font-label mt-0.5">공동 논문</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Activities & Experience ── -->
+      <section id="experience">
+        <div class="flex items-center gap-4 mb-8">
+          <h3 class="font-headline text-2xl font-bold text-on-surface whitespace-nowrap">Activities</h3>
+          <div class="h-px flex-1 bg-gradient-to-r from-surface-tint/30 to-transparent"></div>
+        </div>
+
+        <div class="flex flex-col gap-8">
+
+          <!-- 활동 1: 개발 동아리 -->
+          <div class="relative pl-6 md:pl-12">
+            <div
+              class="absolute left-0 top-0 text-6xl font-headline font-black text-surface-container-high opacity-50 select-none -z-10 -mt-4 -ml-4">
+              '24</div>
+            <div
+              class="exp-card bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_20px_rgba(19,27,46,0.04)] border border-outline-variant/20 hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] hover:bg-surface-bright transition-all duration-300">
+              <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-3">
+                <h4 class="font-headline text-xl font-bold text-on-surface">배터리 제작 그룹 운영</h4>
+                <span
+                  class="font-label text-sm text-surface-tint bg-surface-container-highest px-3 py-1 rounded-md font-medium w-fit">배재대학교
+                  개발 동아리 BT운영</span>
+              </div>
+              <p class="font-label text-sm text-on-surface-variant mb-4 font-medium">2026년 5월 – 현재 · 배재대학교</p>
+              <ul class="font-body text-on-surface-variant space-y-3 list-none">
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>배터리 구조, 전해액, 분리막 등 기초 지식을 바탕으로 다양한 소재 및 구조 연구 진행</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>고체 전해질의 구조와 물성에 대한 깊이 있는 학습 및 실증 연구 참여<em>ThreadMind</em>.</span>
+                </li>
+              </ul>
+              <div class="flex flex-wrap gap-2 mt-4">
+                <span class="tag">배터리 구조</span>
+                <span class="tag">전해액</span>
+                <span class="tag">코드 리뷰</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 활동 2: 해커톤 -->
+          <div class="relative pl-6 md:pl-12">
+            <div
+              class="absolute left-0 top-0 text-6xl font-headline font-black text-surface-container-high opacity-50 select-none -z-10 -mt-4 -ml-4">
+              '24</div>
+            <div
+              class="exp-card bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_20px_rgba(19,27,46,0.04)] border border-outline-variant/20 hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] hover:bg-surface-bright transition-all duration-300">
+              <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-3">
+                <div class="flex items-center gap-2">
+                  <h4 class="font-headline text-xl font-bold text-on-surface">2026 한국관광공사 생성형AI 활용 관광 프롬프톤</h4>
+                  <span
+                    class="text-xs font-label bg-[#4edea3]/20 text-[#005236] dark:text-[#4edea3] px-2 py-0.5 rounded-full font-semibold">🥈
+                    최우수상 받고싶다</span>
+                </div>
+                <span
+                  class="font-label text-sm text-surface-tint bg-surface-container-highest px-3 py-1 rounded-md font-medium w-fit">한국관광공사
+                  주최</span>
+              </div>
+              <p class="font-label text-sm text-on-surface-variant mb-4 font-medium">2026년 5월 · 대전</p>
+              <ul class="font-body text-on-surface-variant space-y-3 list-none">
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>관광객에게 맞춤형 여행 정보 및 경로를 추천해주는 챗봇 서비스 개발.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>대화형 AI를 통해 사용자의 여행 계획을 돕고, 다양한 관광 정보를 제공하는 웹 서비스 구현.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>한국관광공사의 공공 API를 활용하여 실시간 관광 정보 연동 및 챗봇 서비스 개발</span>
+                </li>
+              </ul>
+              <div class="flex flex-wrap gap-2 mt-4">
+                <span class="tag">Spring Boot</span>
+                <span class="tag">SSE</span>
+                <span class="tag">공공 API</span>
+                <span class="tag">React</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 활동 3: 오픈소스 기여 / 학과 프로젝트 -->
+          <div class="relative pl-6 md:pl-12">
+            <div
+              class="absolute left-0 top-0 text-6xl font-headline font-black text-surface-container-high opacity-50 select-none -z-10 -mt-4 -ml-4">
+              '23</div>
+            <div
+              class="exp-card bg-surface-container-lowest p-6 rounded-xl shadow-[0_4px_20px_rgba(19,27,46,0.04)] border border-outline-variant/20 hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] hover:bg-surface-bright transition-all duration-300">
+              <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-3">
+                <h4 class="font-headline text-xl font-bold text-on-surface">배터리팩 제작</h4>
+                <span
+                  class="font-label text-sm text-surface-tint bg-surface-container-highest px-3 py-1 rounded-md font-medium w-fit">배재대학교
+                  스마트배터리학과</span>
+              </div>
+              <p class="font-label text-sm text-on-surface-variant mb-4 font-medium">2020년 1월 – 2026년 6월 · 3학기 진행</p>
+              <ul class="font-body text-on-surface-variant space-y-3 list-none">
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>팀장 역할 수행, 3D 모델링 및 부품 설계 전담.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>고체 전해질 전용 셀홀더 및 방전 테스트 장비 설계, 부품 설계 자동화를 통한 효율적인 프로토타입 제작.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-surface-tint text-lg shrink-0 mt-0.5">chevron_right</span>
+                  <span>고체 전해질 전용 셀홀더 및 방전 테스트 장비 설계, 부품 설계 자동화를 통한 효율적인 프로토타입 제작.</span>
+                </li>
+              </ul>
+              <div class="flex flex-wrap gap-2 mt-4">
+                <span class="tag">Java</span>
+                <span class="tag">Docker</span>
+                <span class="tag">GitHub Actions</span>
+                <span class="tag">JUnit5</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── Projects Bento Grid ── -->
+      <section id="projects">
+        <div class="flex items-center gap-4 mb-8">
+          <h3 class="font-headline text-2xl font-bold text-on-surface whitespace-nowrap">Featured Projects</h3>
+          <div class="h-px flex-1 bg-gradient-to-r from-surface-tint/30 to-transparent"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- 프로젝트 1: ThreadMind (메인 팀 프로젝트) -->
+          <div
+            class="project-card bg-surface-container p-6 rounded-xl hover:bg-surface-bright hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] transition-all duration-300 flex flex-col group border border-outline-variant/10 md:col-span-2">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex items-center gap-3">
+                <h4
+                  class="font-headline text-xl font-bold text-on-surface group-hover:text-surface-tint transition-colors">
+                  ThreadMind</h4>
+                <span
+                  class="text-xs font-label bg-[#4edea3]/20 text-[#005236] dark:text-[#4edea3] px-2 py-0.5 rounded-full font-semibold">팀
+                  프로젝트 · 백엔드 리드</span>
+              </div>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                class="text-on-surface-variant hover:text-surface-tint transition-colors">
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+            <p class="font-body text-on-surface-variant text-sm mb-4 leading-relaxed">
+              고체 전해질 기반 배터리의 성능 평가를 위한 맞춤형 셀홀더 및 방전 테스트 장비를 직접 3D 모델링하여 설계·제작했습니다.
+              소재의 특성을 고려한 구조 최적화를 통해 테스트 신뢰도를 높이고, 프로토타입 제작 공정 시간을 20% 단축했습니다. (팀원 4명, 설계 총괄)
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="tag">Java</span>
+              <span class="tag">Spring Boot</span>
+              <span class="tag">JPA</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Redis</span>
+              <span class="tag">AWS S3</span>
+              <span class="tag">Docker</span>
+              <span class="tag">GitHub Actions</span>
+            </div>
+          </div>
+
+          <!-- 프로젝트 2: QueryLens -->
+          <div
+            class="project-card bg-surface-container p-6 rounded-xl hover:bg-surface-bright hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] transition-all duration-300 flex flex-col group border border-outline-variant/10">
+            <div class="flex justify-between items-start mb-3">
+              <h4
+                class="font-headline text-xl font-bold text-on-surface group-hover:text-surface-tint transition-colors">
+                QueryLens</h4>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                class="text-on-surface-variant hover:text-surface-tint transition-colors">
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+            <p class="font-body text-on-surface-variant text-sm mb-6 flex-1 leading-relaxed">
+              배터리 팩 제작을 위한 맞춤형 셀홀더 및 방전 테스트 장비 설계·제작에 참여했습니다. 소재의 특성을 고려한 구조 최적화를 통해 테스트 신뢰도를 높이고, 프로토타입 제작 공정 시간을 20%
+              단축했습니다. (팀원 4명, 설계 총괄)
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="tag">Python</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">SQLAlchemy</span>
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+            </div>
+          </div>
+
+          <!-- 프로젝트 3: MiniRaft -->
+          <div
+            class="project-card bg-surface-container p-6 rounded-xl hover:bg-surface-bright hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] transition-all duration-300 flex flex-col group border border-outline-variant/10">
+            <div class="flex justify-between items-start mb-3">
+              <h4
+                class="font-headline text-xl font-bold text-on-surface group-hover:text-surface-tint transition-colors">
+                MiniRaft</h4>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                class="text-on-surface-variant hover:text-surface-tint transition-colors">
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+            <p class="font-body text-on-surface-variant text-sm mb-6 flex-1 leading-relaxed">
+              배터리 팩 제작을 위한 맞춤형 셀홀더 및 방전 테스트 장비 설계·제작에 참여했습니다. 소재의 특성을 고려한 구조 최적화를 통해 테스트 신뢰도를 높이고, 프로토타입 제작 공정 시간을 20%
+              단축했습니다. (팀원 4명, 설계 총괄)
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="tag">Java</span>
+              <span class="tag">Socket</span>
+              <span class="tag">Raft</span>
+              <span class="tag">JUnit5</span>
+            </div>
+          </div>
+
+          <!-- 프로젝트 4: DevDiary -->
+          <div
+            class="project-card bg-surface-container p-6 rounded-xl hover:bg-surface-bright hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] transition-all duration-300 flex flex-col group border border-outline-variant/10">
+            <div class="flex justify-between items-start mb-3">
+              <h4
+                class="font-headline text-xl font-bold text-on-surface group-hover:text-surface-tint transition-colors">
+                DevDiary</h4>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                class="text-on-surface-variant hover:text-surface-tint transition-colors">
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+            <p class="font-body text-on-surface-variant text-sm mb-6 flex-1 leading-relaxed">
+              배터리 팩 제작을 위한 맞춤형 셀홀더 및 방전 테스트 장비 설계·제작에 참여했습니다. 소재의 특성을 고려한 구조 최적화를 통해 테스트 신뢰도를 높이고, 프로토타입 제작 공정 시간을 20%
+              단축했습니다. (팀원 4명, 설계 총괄)
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MongoDB</span>
+            </div>
+          </div>
+
+          <!-- 프로젝트 5: 알고리즘 벤치마크 -->
+          <div
+            class="project-card bg-surface-container p-6 rounded-xl hover:bg-surface-bright hover:shadow-[0_10px_30px_rgba(19,27,46,0.08)] transition-all duration-300 flex flex-col group border border-outline-variant/10">
+            <div class="flex justify-between items-start mb-3">
+              <h4
+                class="font-headline text-xl font-bold text-on-surface group-hover:text-surface-tint transition-colors">
+                AlgoBench</h4>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+                class="text-on-surface-variant hover:text-surface-tint transition-colors">
+                <span class="material-symbols-outlined">open_in_new</span>
+              </a>
+            </div>
+            <p class="font-body text-on-surface-variant text-sm mb-6 flex-1 leading-relaxed">
+              배터리 팩 제작을 위한 맞춤형 셀홀더 및 방전 테스트 장비 설계·제작에 참여했습니다. 소재의 특성을 고려한 구조 최적화를 통해 테스트 신뢰도를 높이고, 프로토타입 제작 공정 시간을 20%
+              단축했습니다. (팀원 4명, 설계 총괄)
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span class="tag">C++</span>
+              <span class="tag">Python</span>
+              <span class="tag">Matplotlib</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── Certifications & Education ── -->
+      <section id="certs">
+        <div class="flex items-center gap-4 mb-8">
+          <h3 class="font-headline text-2xl font-bold text-on-surface whitespace-nowrap">Certifications & Education</h3>
+          <div class="h-px flex-1 bg-gradient-to-r from-surface-tint/30 to-transparent"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- 자격증 -->
+          <div
+            class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-surface-tint/30 transition-all">
+            <span class="material-symbols-outlined text-surface-tint text-3xl shrink-0">verified</span>
+            <div>
+              <div class="font-headline font-bold text-on-surface text-sm">정보처리기사</div>
+              <div class="font-label text-xs text-on-surface-variant mt-0.5">한국산업인력공단 · 2026년 6월 취득 예정</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-surface-tint/30 transition-all">
+            <span class="material-symbols-outlined text-surface-tint text-3xl shrink-0">verified</span>
+            <div>
+              <div class="font-headline font-bold text-on-surface text-sm">SQLD (SQL 개발자)</div>
+              <div class="font-label text-xs text-on-surface-variant mt-0.5">한국데이터산업진흥원 · 2025년 12월 취득</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-surface-tint/30 transition-all">
+            <span class="material-symbols-outlined text-surface-tint text-3xl shrink-0">verified</span>
+            <div>
+              <div class="font-headline font-bold text-on-surface text-sm">AWS Certified Cloud Practitioner</div>
+              <div class="font-label text-xs text-on-surface-variant mt-0.5">Amazon Web Services · 2024년 9월 취득</div>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-surface-tint/30 transition-all">
+            <span class="material-symbols-outlined text-surface-tint text-3xl shrink-0">verified</span>
+            <div>
+              <div class="font-headline font-bold text-on-surface text-sm">OPIc IM2 (영어)</div>
+              <div class="font-label text-xs text-on-surface-variant mt-0.5">ACTFL · 2024년 3월 취득</div>
+            </div>
+          </div>
+
+          <!-- 학력 -->
+          <div
+            class="md:col-span-2 flex items-center gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-surface-tint/30 transition-all">
+            <span class="material-symbols-outlined text-surface-tint text-3xl shrink-0">school</span>
+            <div class="flex-1">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                <div class="font-headline font-bold text-on-surface text-sm">배재대학교 AISW 융합학부 스마트배터리학과</div>
+                <span
+                  class="font-label text-xs bg-surface-container px-2 py-0.5 rounded-full text-surface-tint font-semibold w-fit">GPA
+                  3.82 / 4.5</span>
+              </div>
+              <div class="font-label text-xs text-on-surface-variant mt-0.5">2020년 3월 입학 — 2028년 12월 졸업 예정 · 대전</div>
+            </div>
+          </div>
+
+          <!-- 논문 -->
+          <div
+            class="md:col-span-2 flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-surface-tint/30 transition-all">
+            <span class="material-symbols-outlined text-surface-tint text-3xl shrink-0">article</span>
+            <div>
+              <div class="font-headline font-bold text-on-surface text-sm">KSC 2026 학술대회 논문 공동 저자</div>
+              <div class="font-label text-xs text-on-surface-variant mt-0.5">배터리 성능평가를 위한 고속방전 시험 장비 설계 및 제작 · 한국전기화학학회
+                · 2026년 10월</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Contact ── -->
+      <section id="contact" class="mb-4">
+        <div class="flex items-center gap-4 mb-8">
+          <h3 class="font-headline text-2xl font-bold text-on-surface whitespace-nowrap">Contact</h3>
+          <div class="h-px flex-1 bg-gradient-to-r from-surface-tint/30 to-transparent"></div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 p-8">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
+            <div>
+              <p class="font-headline text-xl font-bold text-on-surface mb-1">함께 일하고 싶으신가요?</p>
+              <p class="font-body text-on-surface-variant text-sm leading-relaxed">
+                학부생 연구원, 인턴, 팀 프로젝트 등 어떤 제안이든 환영합니다.<br>
+                메일 또는 GitHub 이슈로 편하게 연락 주세요.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-3 shrink-0">
+              <a href="mailto:tlawoals0915@naver.com"
+                class="flex items-center gap-2 px-5 py-2.5 bg-primary-container text-on-primary rounded-xl font-headline font-bold text-sm hover:opacity-90 transition-opacity">
+                <span class="material-symbols-outlined text-lg">mail</span>
+                이메일 보내기
+              </a>
+              <a href="https://github.com/grizzly-OSS/my-profile.git" target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-2 px-5 py-2.5 bg-surface-container rounded-xl font-headline font-bold text-sm text-on-surface hover:bg-surface-container-high transition-colors">
+                <span class="material-symbols-outlined text-lg">code</span>
+                GitHub
+              </a>
+              <a href="https://github.com/grizzly-OSS/my-profile.git" target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-2 px-5 py-2.5 bg-surface-container rounded-xl font-headline font-bold text-sm text-on-surface hover:bg-surface-container-high transition-colors">
+                <span class="material-symbols-outlined text-lg">work</span>
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <!-- 연락처 상세 -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-outline-variant/20">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-surface-tint">mail</span>
+              <div>
+                <div class="font-label text-xs text-on-surface-variant">Email</div>
+                <div class="font-body text-sm text-on-surface font-medium">tlawoals0915@naver.com</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-surface-tint">location_on</span>
+              <div>
+                <div class="font-label text-xs text-on-surface-variant">Location</div>
+                <div class="font-body text-sm text-on-surface font-medium">대전, 대한민국</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-surface-tint">calendar_today</span>
+              <div>
+                <div class="font-label text-xs text-on-surface-variant">Available</div>
+                <div class="font-body text-sm text-on-surface font-medium">2026년 6월부터 풀타임</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script>
+    /* ── Dark Mode ── */
+    const toggle = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    const root = document.documentElement;
+
+    function applyTheme(dark) {
+      root.classList.toggle('dark', dark);
+      icon.textContent = dark ? 'dark_mode' : 'light_mode';
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+
+    toggle.addEventListener('click', () => applyTheme(!root.classList.contains('dark')));
+
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      applyTheme(saved === 'dark');
+    } else {
+      applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+
+    /* ── Nav & Sidebar Active State ── */
+    const navLinks = document.querySelectorAll('#main-nav .nav-link');
+    const sidebarLinks = document.querySelectorAll('#sidebar-nav .sidebar-link');
+
+    // 스크롤 감지할 섹션 목록
+    const sectionIds = ['profile', 'experience', 'projects', 'certs', 'contact'];
+
+    function setActive(sectionId) {
+      const topId = sectionId;
+
+      navLinks.forEach(link => {
+        link.classList.toggle('is-active', link.dataset.section === topId);
+      });
+
+      sidebarLinks.forEach(link => {
+        link.classList.toggle('is-active', link.dataset.section === sectionId);
+      });
+    }
+
+    // 클릭 시 즉시 활성화
+    [...navLinks, ...sidebarLinks].forEach(link => {
+      link.addEventListener('click', () => setActive(link.dataset.section));
+    });
+
+    // 스크롤 기반 자동 활성화
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, {
+      root: null,
+      rootMargin: '-30% 0px -60% 0px',
+      threshold: 0
+    });
+
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    // 초기 활성화
+    setActive('profile');
+  </script>
+
+  <!-- Shared utility class styles via Tailwind @apply workaround -->
+  <style>
+    .skill-tag {
+      @apply bg-surface-container-highest px-3 py-1.5 rounded-md text-sm font-label text-on-surface-variant flex items-center gap-2;
+    }
+
+    .tag {
+      @apply bg-surface-container-highest px-2 py-1 rounded text-xs font-label text-on-surface-variant font-medium;
+    }
+  </style>
+
+</body>
+
+</html>
